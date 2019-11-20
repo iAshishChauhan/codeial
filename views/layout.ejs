@@ -1,0 +1,21 @@
+<!-- ab agar koi bhi page render karna hoga using router and controllers for ex userProfile -->
+<!-- then vo page ka code <%- body %> ki jagah aa jayega coz of express layouts -->
+<!-- This is the layout of how our page is gonna look like -->
+
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <%- include('_header');%>
+
+    <%- body %>
+
+    <%- include('_footer');%>
+</body>
+
+</html>
