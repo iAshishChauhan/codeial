@@ -1,3 +1,5 @@
+const User = require('../models/user');
+
 // Exporting the actions.
 // Actions
 
@@ -23,10 +25,27 @@ module.exports.UserSignIn = function(req, res) {
 
 // get the signup data
 module.exports.create = function(req, res) {
-    // TODO Later
+    if(req.body.password != req.body.confirmPassword) {
+        return res.redirect('back');
+    }
+
+    User.findOne({email: req.body.email}, function(err, user){
+        if(err) { console.log('Error in finding the user in signing up'); return}
+
+        if(!user) {
+            User.create(req.body, function(err, user){
+                if(err){console.log('Error in creating the user while signing up'); return}
+
+                return res.redirect('/users/sign-in');
+            });
+        } else {
+            return res.redirect('back');
+        }
+    });
+
 }
 
 // Sign In and create a Session
 module.exports.createSession = function(req, res) {
-    // TODO Later
+    
 }
