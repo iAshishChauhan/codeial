@@ -23,12 +23,12 @@ passport.use(new LocalStrategy({
     }
 ));
 
-// Serializing the user to decide which key is to be kept in cookies.  OR Cookie bana dena browser mei.
+// Serializing the user to decide which key is to be kept in cookies.
 passport.serializeUser(function(user, done){
     done(null,user.id);
 });
 
-// De-Serializing the user from the key in cookies.  OR browser Cookie se user ko db Mei doondhna
+// De-Serializing the user from the key in cookies.
 passport.deserializeUser(function(id,done){
     User.findById(id, function(err,user){
         if(err) {
