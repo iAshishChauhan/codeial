@@ -12,6 +12,18 @@ const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo')(session);
 
+// Setting up SCSS
+// for SASS Middleware
+const sassMiddleware = require('node-sass-middleware');
+
+app.use(sassMiddleware({
+    src: './assets/scss',
+    dest: './assets/css',
+    debug: true,
+    outputStyle: 'expanded',
+    prefix: '/css'
+}));
+
 // Setting up static files.
 app.use(express.static('./assets'));
 
@@ -61,6 +73,7 @@ app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
 
 // Use Express Router
+// Kyuki middlewares are defined before route.
 app.use('/', require('./routes'));
 
 // Listen to Server on port no 8000
