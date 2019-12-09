@@ -9,12 +9,15 @@
         <input type="submit" value="Post">
     </form>
 
-    <div>
+    <div id="posts-list-container">
         <ul>
-            <% for(let i of user_post) { %>
+            <% for(let i of posts) { %>
             <li>
-                <%= i.content %>
-                <%= i.id %>
+                <p>
+                    <%= i.content %>
+                    <br>
+                    <small><%= i.user.name %></small>
+                </p>
             </li>
             <% } %>
         </ul>
