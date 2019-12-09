@@ -4,5 +4,6 @@ const router = express.Router();
 
 router.get('/', homeController.home);
 router.use('/users', require('../routes/users'));
+router.use('/posts', require('../routes/posts'));
 
 module.exports = router;

@@ -4,8 +4,19 @@
 
 <section id="feed-post">
     <h4>Posts</h4>
-    <form action="/users/create-post" method="POST" id="new-post-form">
+    <form action="/posts/create" method="POST" id="new-post-form">
         <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
         <input type="submit" value="Post">
     </form>
+
+    <div>
+        <ul>
+            <% for(let i of user_post) { %>
+            <li>
+                <%= i.content %>
+                <%= i.id %>
+            </li>
+            <% } %>
+        </ul>
+    </div>
 </section>
