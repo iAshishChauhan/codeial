@@ -64,3 +64,7 @@ module.exports.destroySession = function(req,res) {
     req.logout(); // This function is given to req using passport.js
     return res.redirect('/');
 }
+
+
+// Create Post Action
+
