@@ -4,9 +4,27 @@ const User = require('../models/user');
 // Actions
 
 module.exports.profile = function (req, res) {
-    return res.render('user_profile', {
-        title: "Profile"
+
+    User.findById(req.params.id, function (err, user) {
+        return res.render('user_profile', {
+            title: "Profile",
+            profile_user: user
+        });
     });
+
+}
+
+// Update User information
+
+module.exports.update = function (req, res) {
+    // Check to ensure logged in user cannot fiddle with other users.
+    if (req.user.id == req.params.id) {
+        User.findByIdAndUpdate(req.params.id, { name: req.body.name, email: req.body.email }, function (err, user) {
+            return res.redirect('back');
+        });
+    } else {
+        return res.status(401).send('Unauthorised');
+    }
 }
 
 // render the signup page
@@ -60,7 +78,8 @@ module.exports.createSession = function (req, res) {
 
 // Sign Out
 
-module.exports.destroySession = function(req,res) {
+module.exports.destroySession = function (req, res) {
     req.logout(); // This function is given to req using passport.js
     return res.redirect('/');
 }
+
