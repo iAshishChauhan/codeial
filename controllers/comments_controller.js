@@ -41,3 +41,5 @@ module.exports.destroy = function (req, res) {
         }
     });
 }
+
+// TODO:: Delete the comments of other user's in your post
