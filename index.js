@@ -66,10 +66,11 @@ app.use(session({
         }
     )
 }));
-
+// Call the passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Send current user information to the views
 app.use(passport.setAuthenticatedUser);
 
 // Use Express Router
