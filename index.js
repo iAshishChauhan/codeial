@@ -16,6 +16,10 @@ const MongoStore = require('connect-mongo')(session);
 // for SASS Middleware
 const sassMiddleware = require('node-sass-middleware');
 
+// Flash Message
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
+
 app.use(sassMiddleware({
     src: './assets/scss',
     dest: './assets/css',
@@ -60,8 +64,8 @@ app.use(session({
             mongooseConnection: db,
             autoRemove: false
         },
-        function(err) {
-            if(err) { console.log(err); }
+        function (err) {
+            if (err) { console.log(err); }
             else { console.log('connect-mongodb setup ok'); }
         }
     )
@@ -73,13 +77,18 @@ app.use(passport.session());
 // Send current user information to the views
 app.use(passport.setAuthenticatedUser);
 
+// Setting up Flash Message
+// Used after session as it uses session cookies
+app.use(flash());
+app.use(customMware.setFlash);
+
 // Use Express Router
 // Kyuki middlewares are defined before route.
 app.use('/', require('./routes'));
 
 // Listen to Server on port no 8000
-app.listen(port, function(err){
-    if(err) {
+app.listen(port, function (err) {
+    if (err) {
         console.log(`Error in running the server: ${err}`);
         return;
     }
