@@ -14,7 +14,20 @@
                 success: function (data) {
                     let newPost = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
+
+                    // calling ajax deletepost function on the new post to populate
                     deletePost($(' .delete-post-button', newPost));
+
+                    // Notification
+                    new Noty({
+                        theme: 'relax',
+                        text: 'Post Published',
+                        layout: 'topRight',
+                        type: 'success',
+                        timeout: 1500
+                    }).show();
+
+
                 },
                 error: function (error) {
                     console.log(error.responseText);
@@ -65,6 +78,15 @@
                 url: $(deleteLink).prop('href'),
                 success: function (data) {
                     $(`#post-${data.data.post_id}`).remove();
+
+                    // Notification
+                    new Noty({
+                        theme: 'relax',
+                        text: 'Post Deleted',
+                        layout: 'topRight',
+                        type: 'success',
+                        timeout: 1500
+                    }).show();
                 },
                 error: function (error) {
                     console.log(error.responseText);
