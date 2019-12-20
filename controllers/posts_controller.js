@@ -9,6 +9,18 @@ module.exports.create = async function (req, res) {
             user: req.user._id
         });
 
+        // Detect an ajax request and return a response of json object with a status
+        // xhr is xmlhttprequest i.e ajax request
+
+        if (req.xhr) {
+            return res.status(200).json({
+                data: {
+                    post: post
+                },
+                message: "Post Created!"
+            });
+        }
+
         return res.redirect('back');
     }
     catch (err) {
@@ -29,6 +41,15 @@ module.exports.destroy = async function (req, res) {
 
             await Comment.deleteMany({ post: req.params.id });
 
+            if (req.xhr) {
+                return res.status(200).json({
+                    data: {
+                        post_id: req.params.id
+                    },
+                    message: "Post Deleted"
+                });
+            }
+
             return res.redirect('back');
 
         } else {
@@ -37,6 +58,6 @@ module.exports.destroy = async function (req, res) {
     }
     catch (err) {
         console.log('Error in deleting post', err);
-        return;
+        return res.redirect('back');
     }
 }
