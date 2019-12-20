@@ -26,7 +26,7 @@
     // Method to create a post in DOM
 
     let newPostDom = function (post) {
-        return $(`<li id="post-${post._id} ">
+        return $(`<li id="post-${post._id}">
                     <p>
     
                         <small>
@@ -75,5 +75,7 @@
 
 
     createPost();
+
+    // TODO:: Call the function deletePost for the rest of Posts
 
 }
