@@ -73,9 +73,20 @@
         });
     }
 
+    // Call the function deletePost for the each of the Posts when the page loads
+    let convertPostsToAjax = function () {
+        $('#posts-list-container>ul>li').each(function () {
+            let self = $(this);
+            let deleteButtonLink = $(' .delete-post-button', self);
+            deletePost(deleteButtonLink);
+        });
+    }
 
+
+
+    // Calling the functions
     createPost();
+    convertPostsToAjax();
 
-    // TODO:: Call the function deletePost for the rest of Posts
 
 }

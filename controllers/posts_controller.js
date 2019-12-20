@@ -13,6 +13,10 @@ module.exports.create = async function (req, res) {
         // xhr is xmlhttprequest i.e ajax request
 
         if (req.xhr) {
+
+            // Populate just the user-name and not the password!
+            post = await post.populate('user', 'name').execPopulate();
+
             return res.status(200).json({
                 data: {
                     post: post
