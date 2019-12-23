@@ -27,7 +27,6 @@
                         timeout: 1500
                     }).show();
 
-
                 },
                 error: function (error) {
                     console.log(error.responseText);
@@ -87,6 +86,7 @@
                         type: 'success',
                         timeout: 1500
                     }).show();
+
                 },
                 error: function (error) {
                     console.log(error.responseText);
@@ -104,11 +104,8 @@
         });
     }
 
-
-
     // Calling the functions
     createPost();
     convertPostsToAjax();
-
 
 }
