@@ -13,8 +13,11 @@ class PostComments {
 
         this.createComment(postId);
 
-        // let self = this;
+        let self = this;
         // call for all existing comments (Deletion)
+        $(' .delete-comment-button', this.postContainer).each(function(){
+            self.deleteComment($(this));
+        });
     }
 
     createComment(postId) {
@@ -30,6 +33,8 @@ class PostComments {
                 success: function (data) {
                     let newComment = pself.newCommentDom(data.data.comment);
                     $(`#post-comments-${postId}`).prepend(newComment);
+                    let deleteLink = $(' .delete-comment-button', newComment);
+                    pself.deleteComment(deleteLink);
 
                 },
                 error: function (error) {
@@ -53,6 +58,26 @@ class PostComments {
                         </small>
                     </p>
                 </li>`);
+    }
+
+    deleteComment(deleteLink) {
+        $(deleteLink).click(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'get',
+                url: $(deleteLink).prop('href'),
+                success: function(data) {
+                    // Remove comment from DOM
+                    $(`#comment-${data.data.comment_id}`).remove();
+
+
+                },
+                error: function(error) {
+                    console.log(error.responseText);
+                }
+            });
+        });
     }
 
 }
