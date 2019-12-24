@@ -33,9 +33,19 @@ class PostComments {
                 success: function (data) {
                     let newComment = pself.newCommentDom(data.data.comment);
                     $(`#post-comments-${postId}`).prepend(newComment);
+
+                    // Calling delete comment method when post is created
                     let deleteLink = $(' .delete-comment-button', newComment);
                     pself.deleteComment(deleteLink);
 
+                    // Notification
+                    new Noty({
+                        text: "Comment Posted",
+                        theme: 'relax',
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                    }).show();
                 },
                 error: function (error) {
                     console.log(error.responseText);
@@ -71,6 +81,14 @@ class PostComments {
                     // Remove comment from DOM
                     $(`#comment-${data.data.comment_id}`).remove();
 
+                    // Notification
+                    new Noty({
+                        text: "Comment Deleted",
+                        theme: 'relax',
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                    }).show();
 
                 },
                 error: function(error) {
