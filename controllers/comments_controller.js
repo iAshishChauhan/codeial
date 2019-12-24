@@ -12,10 +12,22 @@ module.exports.create = async function (req, res) {
                 post: req.body.post,
                 user: req.user._id
             });
-
+            
             // Adding comment to Post. || UPDATE ||
             post.comments.push(comment);
             post.save(); // Whenever you update anything, call save after it.
+
+
+            if(req.xhr) {
+                comment = await comment.populate('user', 'name').execPopulate();
+
+                return res.status(200).json({
+                    data: {
+                        comment: comment
+                    },
+                    message: "Comment Created!"
+                });
+            }
 
             return res.redirect('back');
         }

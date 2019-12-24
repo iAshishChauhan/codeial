@@ -18,6 +18,9 @@
                     // calling ajax deletepost function on the new post to populate
                     deletePost($(' .delete-post-button', newPost));
 
+                    // call the create comment class
+                    new PostComments(data.data.post._id);
+
                     // Notification
                     new Noty({
                         theme: 'relax',
@@ -51,7 +54,7 @@
                     </p>
                     <div class="post-comments">
                         
-                        <form action="/comments/create" method="POST">
+                        <form id="post-${ post._id }-comments-form" action="/comments/create" method="POST">
                             <input type="text" name="content" placeholder="Add Comment..." required>
                             <input type="hidden" name="post" value="${ post._id}">
                             <input type="submit" value="Add Comment">
@@ -101,6 +104,10 @@
             let self = $(this);
             let deleteButtonLink = $(' .delete-post-button', self);
             deletePost(deleteButtonLink);
+
+            // get the post's id by splitting the id attribute
+            let postId = self.prop('id').split("-")[1]
+            new PostComments(postId);
         });
     }
 
